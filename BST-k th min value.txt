@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+// Create new node
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = node->right = NULL;
+    return node;
+}
+
+// Insert into BST
+struct Node* insert(struct Node* root, int data) {
+    if (root == NULL)
+        return newNode(data);
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+    return root;
+}
+
+// Inorder traversal to find k-th smallest
+void kthMinUtil(struct Node* root, int k, int *count, int *result) {
+    if (root == NULL || *count >= k)
+        return;
+
+    // Left subtree
+    kthMinUtil(root->left, k, count, result);
+
+    // Visit node
+    (*count)++;
+    if (*count == k) {
+        *result = root->data;
+        return;
+    }
+
+    // Right subtree
+    kthMinUtil(root->right, k, count, result);
+}
+
+int kthMin(struct Node* root, int k) {
+    int count = 0, result = -1;
+    kthMinUtil(root, k, &count, &result);
+    return result;
+}
+
+// Driver code
+int main() {
+    struct Node* root = NULL;
+    int n, i, val, k;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    printf("Enter %d values: ", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &val);
+        root = insert(root, val);
+    }
+
+    printf("Enter k: ");
+    scanf("%d", &k);
+
+    int ans = kthMin(root, k);
+    if (ans == -1)
+        printf("Less than %d nodes in BST.\n", k);
+    else
+        printf("%d-th minimum value is: %d\n", k, ans);
+
+    return 0;
+}

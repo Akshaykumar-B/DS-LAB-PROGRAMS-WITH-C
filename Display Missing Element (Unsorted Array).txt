@@ -1,0 +1,7 @@
+#include <stdio.h>
+int main(){int a[50],n,sum=0,i,total;
+scanf("%d",&n);
+for(i=0;i<n-1;i++){scanf("%d",&a[i]); sum+=a[i];}
+total=n*(n+1)/2;
+printf("Missing=%d",total-sum);
+}
