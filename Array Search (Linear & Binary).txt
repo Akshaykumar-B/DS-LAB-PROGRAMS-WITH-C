@@ -1,0 +1,4 @@
+#include <stdio.h>
+int linear(int a[],int n,int key){for(int i=0;i<n;i++) if(a[i]==key) return i; return -1;}
+int binary(int a[],int n,int key){int l=0,h=n-1,m;while(l<=h){m=(l+h)/2;if(a[m]==key)return m;else if(key<a[m])h=m-1;else l=m+1;}return -1;}
+int main(){int a[]={1,2,3,4,5};printf("Linear=%d\n",linear(a,5,3));printf("Binary=%d\n",binary(a,5,3));}

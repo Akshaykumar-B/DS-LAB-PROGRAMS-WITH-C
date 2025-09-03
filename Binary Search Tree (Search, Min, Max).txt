@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node{int data;struct Node*left,*right;};
+struct Node* newNode(int d){
+    struct Node* n=malloc(sizeof(struct Node));
+    n->data=d;n->left=n->right=NULL;return n;}
+struct Node* insert(struct Node* r,int d){
+    if(!r) return newNode(d);
+    if(d<r->data) r->left=insert(r->left,d);
+    else r->right=insert(r->right,d); return r;}
+struct Node* minNode(struct Node* r){while(r&&r->left) r=r->left; return r;}
+struct Node* maxNode(struct Node* r){while(r&&r->right) r=r->right; return r;}
+struct Node* search(struct Node* r,int k){
+    if(!r||r->data==k) return r;
+    return (k<r->data)?search(r->left,k):search(r->right,k);}
+int main(){
+    struct Node* root=NULL; root=insert(root,50);
+    insert(root,30);insert(root,70);insert(root,20);
+    printf("Min=%d Max=%d\n",minNode(root)->data,maxNode(root)->data);
+    struct Node* f=search(root,30); if(f) printf("Found");
+}

@@ -1,0 +1,10 @@
+#include <stdio.h>
+int main(){
+    int a[50],n,key,i,flag=0;
+    printf("Enter size: "); scanf("%d",&n);
+    for(i=0;i<n;i++) scanf("%d",&a[i]);
+    printf("Enter reg no to search: "); scanf("%d",&key);
+    for(i=0;i<n;i++){ if(a[i]==key){flag=1;break;} }
+    if(flag) printf("Found at %d\n",i);
+    else printf("Not Found\n");
+}
